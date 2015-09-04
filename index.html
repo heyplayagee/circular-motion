@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Circular Motion by Stacy Gee</title>
+	<h1>Circular Motion</h1>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.16/processing.js"></script>
+</head>
+<body>
+	<!-- Processing code -->
+	<script type="application/processing" target="mysketch">
+	//Stacy Gee, CP2 6-7, Circular Motion
+	Planet [] planets;
+	public void setup(){
+	  size(600,450,P3D);
+	  planets = new Planet[18];
+	  for(int i = 0; i < planets.length; i++){
+	    planets[i] = new Planet();
+	  }
+	}
+	public void draw(){
+	  int r,g,b;
+	  r = random(255);
+	  g = random(255);
+	  b = random(255);
+	  background(20,10,70);
+	  fill(r,g,b);
+	  noStroke();
+	  for(int i = 0; i < planets.length; i++){
+	    planets[i].move();
+	    planets[i].show();
+	  }
+	}
+	class Planet{
+	  int radius, Size, x, z, r, g, b;
+	  float theta, speed;
+	  Planet(){
+	    radius = random(30,90);
+	    Size = random(8,20);
+	    theta = random(PI*2);
+	    speed = random(0.2f);
+	    r = random(255);
+	    g = random(255);
+	    b = random(255);
+	  }
+	  public void show(){
+	    x = radius * cos(theta)+mouseX-20;
+	    z = radius * sin(theta)-mouseY+220;
+	    camera(width/2.0f, height/1.0f, (height/-10.0f) / tan(PI*60.0f / 360.0f), width/2.0f, height/4.0f, 0, 0, 1, 0);
+	    specular(r, g, b); 
+	    shininess(5.0f); 
+	    smooth();
+	    translate(x,50,z);
+	    sphere(Size);
+	    translate(-x,50,-z);
+	  } 
+	  public void move(){
+	    theta = theta + speed;
+	  }
+	}
+	</script>
+	<canvas id="mysketch"></canvas>
+</body>
+</html>
